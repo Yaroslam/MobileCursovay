@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 private const val BASE_URL = "https://56f9-188-66-38-93.eu.ngrok.io"
 
@@ -34,6 +35,14 @@ interface ShoesApiService {
 
     @GET("api/orders/getAllOrders")
     suspend fun getOrders(): Array<Order>
+
+    @GET("api/orders/getUserAsExecutorOrders")
+    suspend fun getExecuteOrders(@Query("userId") userId: String): Array<Order>
+
+    @GET("api/orders/getUserAsCustomerOrders")
+    suspend fun getCustomerOrders(@Query("userId") userId: String): Array<Order>
+
+
 }
 
 /**

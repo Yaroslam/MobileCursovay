@@ -14,8 +14,6 @@ interface OrdersActionListener {
     fun takeOrderToWork(order: Order, button: View)
 }
 
-typealias UsersListener = (users: Array<Order>) -> Unit
-
 class OrdersAdapter(private val OrdersActionListener: OrdersActionListener): RecyclerView.Adapter<OrdersAdapter.OrderHolder>(), View.OnClickListener  {
 
 

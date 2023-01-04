@@ -3,18 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.MyOrdersFragment">
+    tools:context=".Fragments.MyOrdersFragment"
+    android:background="@color/darkWhite">
 
-    <ScrollView
-        android:id="@+id/mainLayout"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        >
-
-        <LinearLayout
-            android:id="@+id/childlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/orderList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/customer_orders_card"
+        />
 </FrameLayout>
