@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id = "@+id/shoesList"
+        android:title="Shoes"
+        android:icon="@drawable/ic_shoes_list"
+            />
+
+    <item
+        android:id = "@+id/AllOrders"
+        android:title="AllOrders"
+        android:icon="@drawable/ic_baseline_bookmark_border_24"
+        />
+
+    <item
+        android:id = "@+id/myOrders"
+        android:title="MyOrders"
+        android:icon="@drawable/ic_my_orders_basket"
+        />
+
+    <item
+        android:id = "@+id/executeOrders"
+        android:title="ExecuteOrders"
+        android:icon="@drawable/ic_orders_to_execute"
+        />
+
+
+
+
+
+
+</menu>
