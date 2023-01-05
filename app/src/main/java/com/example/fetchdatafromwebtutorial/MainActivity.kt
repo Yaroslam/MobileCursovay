@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity()
     companion object {
         const val URL = "56f9-188-66-38-93"
     }
-    private val shoesDataModel: ShoesViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?)

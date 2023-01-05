@@ -18,7 +18,7 @@ class DetailShoesActivity : AppCompatActivity() {
 
     companion object {
         const val SHOES_ID = "SHOES_ID"
-        const val URL = "56f9-188-66-38-93"
+        const val URL = "3b08-188-66-38-93"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
