@@ -1,5 +1,6 @@
 package com.example.fetchdatafromwebtutorial.network
 
+import com.example.fetchdatafromwebtutorial.constants.LINK
 import com.example.fetchdatafromwebtutorial.repository.models.Order
 import com.example.fetchdatafromwebtutorial.repository.models.Shoes
 import com.squareup.moshi.Moshi
@@ -7,10 +8,9 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.Header
 
-private const val BASE_URL = "https://56f9-188-66-38-93.eu.ngrok.io"
+private const val BASE_URL = " https://${LINK}.eu.ngrok.io"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -22,7 +22,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 /**
- * A public interface that exposes the [getPhotos] method
+ * A public interface that exposes the [getShoes] method
  */
 interface ShoesApiService {
     /**
@@ -31,16 +31,16 @@ interface ShoesApiService {
      * HTTP method
      */
     @GET("/api/Shoes")
-    suspend fun getPhotos(): Array<Shoes>
+    suspend fun getShoes(@Header("Authorization") token: String): Array<Shoes>
 
-    @GET("api/orders/getAllOrders")
-    suspend fun getOrders(): Array<Order>
+    @GET("/api/orders/getAllOrders")
+    suspend fun getOrders(@Header("Authorization") token: String): Array<Order>
 
-    @GET("api/orders/getUserAsExecutorOrders")
-    suspend fun getExecuteOrders(@Query("userId") userId: String): Array<Order>
+    @GET("/api/orders/getUserAsExecutorOrders")
+    suspend fun getExecuteOrders(@Header("Authorization") token: String): Array<Order>
 
-    @GET("api/orders/getUserAsCustomerOrders")
-    suspend fun getCustomerOrders(@Query("userId") userId: String): Array<Order>
+    @GET("/api/orders/getUserAsCustomerOrders")
+    suspend fun getCustomerOrders(@Header("Authorization") token: String): Array<Order>
 
 
 }

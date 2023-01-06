@@ -1,9 +1,11 @@
 package com.example.fetchdatafromwebtutorial.repository.viewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fetchdatafromwebtutorial.AuthActivity
 import com.example.fetchdatafromwebtutorial.constants.ApiStatus
 import com.example.fetchdatafromwebtutorial.network.ShoesApi
 import com.example.fetchdatafromwebtutorial.repository.models.Order
@@ -29,7 +31,8 @@ class CustomerOrdersViewModel: ViewModel() {
 
         viewModelScope.launch {
             _status.value = ApiStatus.LOADING
-            _orders.value = ShoesApi.retrofitService.getCustomerOrders("1")
+            Log.e("TOKEN", "Bearer ${AuthActivity.authToken}")
+            _orders.value = ShoesApi.retrofitService.getCustomerOrders("Bearer ${AuthActivity.authToken}")
             _status.value = ApiStatus.DONE
             orders = _orders
         }
@@ -38,7 +41,7 @@ class CustomerOrdersViewModel: ViewModel() {
     fun updateOrders(){
         viewModelScope.launch {
             _status.value = ApiStatus.LOADING
-            _orders.value = ShoesApi.retrofitService.getCustomerOrders("1")
+            _orders.value = ShoesApi.retrofitService.getCustomerOrders("Bearer ${AuthActivity.authToken}")
             _status.value = ApiStatus.DONE
             orders = _orders
         }

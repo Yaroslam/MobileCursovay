@@ -10,8 +10,10 @@ import android.widget.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fetchdatafromwebtutorial.AuthActivity
 import com.example.fetchdatafromwebtutorial.DetailShoesActivity
 import com.example.fetchdatafromwebtutorial.R
+import com.example.fetchdatafromwebtutorial.constants.LINK
 import com.example.fetchdatafromwebtutorial.databinding.FragmentMyExecutosOrdersBinding
 import com.example.fetchdatafromwebtutorial.databinding.FragmentMyOrdersBinding
 import com.example.fetchdatafromwebtutorial.repository.adapters.CustomerOrdersActionListener
@@ -40,7 +42,7 @@ class MyExecutosOrdersFragment : Fragment() {
         super.onCreate(savedInstanceState)
         adapter = ExecuteOrdersAdapter(object : ExecuteOrdersActionListener {
             override fun takeOrderToWork(order: Order, button: View){
-                Toast.makeText(context, "Вы взяли заказ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Вы отказались от заказа", Toast.LENGTH_SHORT).show()
             }
         })
         binding = FragmentMyExecutosOrdersBinding.inflate(layoutInflater)
@@ -73,7 +75,8 @@ class MyExecutosOrdersFragment : Fragment() {
                 .build()
 
             val request: Request = Request.Builder()
-                .url("https://${DetailShoesActivity.URL}.eu.ngrok.io/api/orders/refuseOrder")
+                .url("https://${LINK}.eu.ngrok.io/api/orders/refuseOrder")
+                .header("Authorization", "Bearer ${AuthActivity.authToken}")
                 .post(requestBody)
                 .build()
             Log.e("ERRROR", order_id.toString())

@@ -11,15 +11,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.fetchdatafromwebtutorial.AuthActivity
 import com.example.fetchdatafromwebtutorial.DetailShoesActivity
 import com.example.fetchdatafromwebtutorial.MainActivity
 import com.example.fetchdatafromwebtutorial.R
+import com.example.fetchdatafromwebtutorial.constants.LINK
 import com.example.fetchdatafromwebtutorial.databinding.FragmentLoginBinding
 import com.example.fetchdatafromwebtutorial.databinding.FragmentRegisterBinding
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import org.json.JSONArray
+import org.json.JSONObject
 
 
 class RegisterFragment : Fragment() {
@@ -58,11 +62,33 @@ class RegisterFragment : Fragment() {
                 .build()
 
             val request: Request = Request.Builder()
-                .url("https://${DetailShoesActivity.URL}.eu.ngrok.io/api/reg/registration")
+                .url("https://${LINK}.eu.ngrok.io/reg/registration")
                 .post(requestBody)
                 .build()
             val response = client.newCall(request).execute()
             responseCode = response.code
+
+            if(responseCode == 200){
+                val jsonObj = JSONObject(response.body?.string() ?: "token")
+                val map = jsonObj.toMap()
+                AuthActivity.authToken = map["token"] as String
+                Log.e("TOKEN", map["token"] as String)
+            }
+        }
+    }
+
+
+    fun JSONObject.toMap(): Map<String, *> = keys().asSequence().associateWith {
+        when (val value = this[it])
+        {
+            is JSONArray ->
+            {
+                val map = (0 until value.length()).associate { Pair(it.toString(), value[it]) }
+                JSONObject(map).toMap().values.toList()
+            }
+            is JSONObject -> value.toMap()
+            JSONObject.NULL -> null
+            else            -> value
         }
     }
 

@@ -18,7 +18,9 @@ class AuthActivity : AppCompatActivity() {
     private enum class Fragments {REG, LOGIN}
     private var curFragment = Fragments.REG;
     private lateinit var binding: ActivityAuthBinding
-
+    companion object {
+        var authToken: String = "12"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

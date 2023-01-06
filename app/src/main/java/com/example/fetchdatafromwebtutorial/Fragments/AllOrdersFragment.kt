@@ -1,28 +1,22 @@
 package com.example.fetchdatafromwebtutorial.Fragments
 
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fetchdatafromwebtutorial.DetailShoesActivity
+import com.example.fetchdatafromwebtutorial.AuthActivity
+import com.example.fetchdatafromwebtutorial.constants.LINK
 import com.example.fetchdatafromwebtutorial.databinding.FragmentAllOrdersBinding
-import com.example.fetchdatafromwebtutorial.databinding.FragmentMyOrdersBinding
-import com.example.fetchdatafromwebtutorial.databinding.FragmentShoeListBinding
 import com.example.fetchdatafromwebtutorial.repository.adapters.OrdersActionListener
 import com.example.fetchdatafromwebtutorial.repository.adapters.OrdersAdapter
 import com.example.fetchdatafromwebtutorial.repository.models.Order
-import com.example.fetchdatafromwebtutorial.repository.models.Shoes
 import com.example.fetchdatafromwebtutorial.repository.viewModels.OrdersViewModel
-import com.example.fetchdatafromwebtutorial.repository.viewModels.ShoesViewModel
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -42,6 +36,7 @@ class AllOrdersFragment : Fragment() {
             override fun takeOrderToWork(order: Order, button: View){
                 takeOrderToWorkThread(order).start()
                 Toast.makeText(context, "Вы взяли заказ", Toast.LENGTH_SHORT).show()
+                orderDataModel.updateOrders()
             }
         })
         binding = FragmentAllOrdersBinding.inflate(layoutInflater)
@@ -70,16 +65,16 @@ class AllOrdersFragment : Fragment() {
             val client = OkHttpClient()
 
             val requestBody: RequestBody = FormBody.Builder()
-                .add("id", order.Order_id.toString()).add("executor", "1")
+                .add("id", order.Order_id.toString())
                 .build()
 
             val request: Request = Request.Builder()
-                .url("https://${DetailShoesActivity.URL}.eu.ngrok.io/api/orders/takeToWorkOrder")
+                .url("https://${LINK}.eu.ngrok.io/api/orders/takeToWorkOrder")
+                .header("Authorization", "Bearer ${AuthActivity.authToken}")
                 .post(requestBody)
                 .build()
             Log.e("ERRROR", order.Order_id.toString())
             val response = client.newCall(request).execute()
-            orderDataModel.updateOrders()
         }
     }
 

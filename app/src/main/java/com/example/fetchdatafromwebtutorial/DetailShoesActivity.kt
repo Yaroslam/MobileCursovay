@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fetchdatafromwebtutorial.constants.LINK
 import com.example.fetchdatafromwebtutorial.repository.models.DetailShoes
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
@@ -18,7 +19,6 @@ class DetailShoesActivity : AppCompatActivity() {
 
     companion object {
         const val SHOES_ID = "SHOES_ID"
-        const val URL = "3b08-188-66-38-93"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,11 +34,12 @@ class DetailShoesActivity : AppCompatActivity() {
         return Thread {
             val client = OkHttpClient()
 
-            val queryUrlBuilder: HttpUrl.Builder = "https://${URL}.eu.ngrok.io/api/getSingleShoesInfo".toHttpUrl().newBuilder()
+            val queryUrlBuilder: HttpUrl.Builder = "https://${LINK}.eu.ngrok.io/api/getSingleShoesInfo".toHttpUrl().newBuilder()
             queryUrlBuilder.addQueryParameter("id", intent.getStringExtra(SHOES_ID))
 
             val request: Request = Request.Builder()
                 .url(queryUrlBuilder.build())
+                .header("Authorization", "Bearer ${AuthActivity.authToken}")
                 .build()
 
             val response = client.newCall(request).execute()
@@ -59,12 +60,13 @@ class DetailShoesActivity : AppCompatActivity() {
                 .build()
 
             val request: Request = Request.Builder()
-                .url("https://${URL}.eu.ngrok.io/api/orders/create")
+                .url("https://${LINK}.eu.ngrok.io/api/orders/create")
+                .header("Authorization", "Bearer ${AuthActivity.authToken}")
                 .post(requestBody)
                 .build()
 
             val response = client.newCall(request).execute()
-            Log.e("FATAL ERROR", intent.getStringExtra(SHOES_ID).toString())
+            response.body?.let { Log.e("FATAL ERROR", it.string()) }
 
         }
     }

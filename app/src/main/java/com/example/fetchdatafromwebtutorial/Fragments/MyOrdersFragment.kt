@@ -10,8 +10,10 @@ import android.widget.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fetchdatafromwebtutorial.AuthActivity
 import com.example.fetchdatafromwebtutorial.DetailShoesActivity
 import com.example.fetchdatafromwebtutorial.R
+import com.example.fetchdatafromwebtutorial.constants.LINK
 import com.example.fetchdatafromwebtutorial.databinding.FragmentMyOrdersBinding
 import com.example.fetchdatafromwebtutorial.repository.adapters.CustomerOrdersActionListener
 import com.example.fetchdatafromwebtutorial.repository.adapters.CustomerOrdersAdapter
@@ -56,15 +58,6 @@ class MyOrdersFragment : Fragment() {
     }
 
 
-
-
-
-
-
-
-
-
-
     fun deleteOrder(order_id: Int){
         deleteOrderThread(order_id).start()
     }
@@ -78,7 +71,8 @@ class MyOrdersFragment : Fragment() {
                 .build()
 
             val request: Request = Request.Builder()
-                .url("https://${DetailShoesActivity.URL}.eu.ngrok.io/api/orders/delete")
+                .url("https://${LINK}.eu.ngrok.io/api/orders/delete")
+                .header("Authorization", "Bearer ${AuthActivity.authToken}")
                 .post(requestBody)
                 .build()
             Log.e("ERRROR", order_id.toString())
