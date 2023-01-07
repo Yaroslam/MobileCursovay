@@ -10,7 +10,8 @@ import com.example.fetchdatafromwebtutorial.repository.models.Order
 import com.squareup.picasso.Picasso
 
 interface CustomerOrdersActionListener {
-    fun takeOrderToWork(order: Order, button: View)
+    fun deleteOrder(order: Order, button: View)
+    fun confirmOrderComplete(order: Order, button: View)
 }
 
 class CustomerOrdersAdapter(private val CustomerOrdersActionListener: CustomerOrdersActionListener):
@@ -37,7 +38,7 @@ class CustomerOrdersAdapter(private val CustomerOrdersActionListener: CustomerOr
 
     override fun onClick(v: View?) {
         val order: Order = v?.tag as Order
-        CustomerOrdersActionListener.takeOrderToWork(order, v)
+        CustomerOrdersActionListener.deleteOrder(order, v)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -53,6 +54,8 @@ class CustomerOrdersAdapter(private val CustomerOrdersActionListener: CustomerOr
         fun bind(order: Order)  {
             customerOrdersCardBinding.takeOrderButton.tag = order
             customerOrdersCardBinding.takeOrderButton.text = "Отменить заказ"
+
+            customerOrdersCardBinding.confirmOrderComplete.text = "Заказ выполнен"
 
             customerOrdersCardBinding.executor.text = order.customer
             customerOrdersCardBinding.brand.text = order.Shoes_brand

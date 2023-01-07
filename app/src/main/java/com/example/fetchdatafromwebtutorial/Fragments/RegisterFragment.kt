@@ -18,6 +18,7 @@ import com.example.fetchdatafromwebtutorial.R
 import com.example.fetchdatafromwebtutorial.constants.LINK
 import com.example.fetchdatafromwebtutorial.databinding.FragmentLoginBinding
 import com.example.fetchdatafromwebtutorial.databinding.FragmentRegisterBinding
+import com.example.fetchdatafromwebtutorial.servises.toMap
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -78,19 +79,6 @@ class RegisterFragment : Fragment() {
     }
 
 
-    fun JSONObject.toMap(): Map<String, *> = keys().asSequence().associateWith {
-        when (val value = this[it])
-        {
-            is JSONArray ->
-            {
-                val map = (0 until value.length()).associate { Pair(it.toString(), value[it]) }
-                JSONObject(map).toMap().values.toList()
-            }
-            is JSONObject -> value.toMap()
-            JSONObject.NULL -> null
-            else            -> value
-        }
-    }
 
     fun register(){
         registerThred().start()

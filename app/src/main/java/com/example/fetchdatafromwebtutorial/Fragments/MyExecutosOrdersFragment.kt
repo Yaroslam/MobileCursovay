@@ -41,7 +41,8 @@ class MyExecutosOrdersFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = ExecuteOrdersAdapter(object : ExecuteOrdersActionListener {
-            override fun takeOrderToWork(order: Order, button: View){
+            override fun refuseOrder(order: Order, button: View){
+                refuseOrder(order.Order_id)
                 Toast.makeText(context, "Вы отказались от заказа", Toast.LENGTH_SHORT).show()
             }
         })
@@ -66,6 +67,11 @@ class MyExecutosOrdersFragment : Fragment() {
     }
 
 
+    fun refuseOrder(order_id: Int){
+        refuseOrderThread(order_id).start()
+    }
+
+
     private fun refuseOrderThread(order_id: Int): Thread{
         return Thread {
             val client = OkHttpClient()
@@ -81,6 +87,7 @@ class MyExecutosOrdersFragment : Fragment() {
                 .build()
             Log.e("ERRROR", order_id.toString())
             val response = client.newCall(request).execute()
+            executorOrderDataModel.updateOrders()
         }
     }
 

@@ -11,7 +11,7 @@ import com.example.fetchdatafromwebtutorial.repository.models.Order
 import com.squareup.picasso.Picasso
 
 interface ExecuteOrdersActionListener {
-    fun takeOrderToWork(order: Order, button: View)
+    fun refuseOrder(order: Order, button: View)
 }
 
 class ExecuteOrdersAdapter(private val ExecuteOrdersActionListener: ExecuteOrdersActionListener):
@@ -38,7 +38,7 @@ class ExecuteOrdersAdapter(private val ExecuteOrdersActionListener: ExecuteOrder
 
     override fun onClick(v: View?) {
         val order: Order = v?.tag as Order
-        ExecuteOrdersActionListener.takeOrderToWork(order, v)
+        ExecuteOrdersActionListener.refuseOrder(order, v)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -53,7 +53,7 @@ class ExecuteOrdersAdapter(private val ExecuteOrdersActionListener: ExecuteOrder
 
         fun bind(order: Order)  {
             ExecuteOrdersCardBinding.takeOrderButton.tag = order
-            ExecuteOrdersCardBinding.takeOrderButton.text = "Отказаться "
+            ExecuteOrdersCardBinding.takeOrderButton.text = "Отказаться"
 
             ExecuteOrdersCardBinding.customer.text = order.customer
             ExecuteOrdersCardBinding.link.text = order.Shoes_link

@@ -14,11 +14,11 @@ import com.example.fetchdatafromwebtutorial.AuthActivity
 import com.example.fetchdatafromwebtutorial.MainActivity
 import com.example.fetchdatafromwebtutorial.constants.LINK
 import com.example.fetchdatafromwebtutorial.databinding.FragmentLoginBinding
+import com.example.fetchdatafromwebtutorial.servises.toMap
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
-import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -39,8 +39,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         return binding.root
     }
 
@@ -70,20 +69,6 @@ class LoginFragment : Fragment() {
 
 
 
-        }
-    }
-
-    fun JSONObject.toMap(): Map<String, *> = keys().asSequence().associateWith {
-        when (val value = this[it])
-        {
-            is JSONArray ->
-            {
-                val map = (0 until value.length()).associate { Pair(it.toString(), value[it]) }
-                JSONObject(map).toMap().values.toList()
-            }
-            is JSONObject -> value.toMap()
-            JSONObject.NULL -> null
-            else            -> value
         }
     }
 

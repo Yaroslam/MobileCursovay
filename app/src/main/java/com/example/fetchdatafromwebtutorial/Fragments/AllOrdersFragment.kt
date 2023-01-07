@@ -36,7 +36,6 @@ class AllOrdersFragment : Fragment() {
             override fun takeOrderToWork(order: Order, button: View){
                 takeOrderToWorkThread(order).start()
                 Toast.makeText(context, "Вы взяли заказ", Toast.LENGTH_SHORT).show()
-                orderDataModel.updateOrders()
             }
         })
         binding = FragmentAllOrdersBinding.inflate(layoutInflater)
@@ -45,7 +44,7 @@ class AllOrdersFragment : Fragment() {
 
         orderDataModel.getListOrders().observe(this, Observer {
             it?.let {
-                adapter.refreshShoes(it)
+                adapter.refreshOrders(it)
             }
         })
 
@@ -55,8 +54,14 @@ class AllOrdersFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.e("CCCCCCUUUUUUUUUUUUUUm", "IT IS RESTART")
+        orderDataModel.updateOrders()
     }
 
 
@@ -75,6 +80,7 @@ class AllOrdersFragment : Fragment() {
                 .build()
             Log.e("ERRROR", order.Order_id.toString())
             val response = client.newCall(request).execute()
+            orderDataModel.updateOrders()
         }
     }
 

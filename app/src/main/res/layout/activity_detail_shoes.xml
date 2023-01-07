@@ -86,11 +86,11 @@
         android:id="@+id/sizesText"
         android:layout_width="158dp"
         android:layout_height="83dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="14dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/shoesImage" />
 

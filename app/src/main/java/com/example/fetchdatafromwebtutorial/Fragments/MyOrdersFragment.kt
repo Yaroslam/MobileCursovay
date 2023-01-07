@@ -11,8 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fetchdatafromwebtutorial.AuthActivity
-import com.example.fetchdatafromwebtutorial.DetailShoesActivity
-import com.example.fetchdatafromwebtutorial.R
 import com.example.fetchdatafromwebtutorial.constants.LINK
 import com.example.fetchdatafromwebtutorial.databinding.FragmentMyOrdersBinding
 import com.example.fetchdatafromwebtutorial.repository.adapters.CustomerOrdersActionListener
@@ -33,9 +31,17 @@ class MyOrdersFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = CustomerOrdersAdapter(object : CustomerOrdersActionListener {
-            override fun takeOrderToWork(order: Order, button: View){
-                Toast.makeText(context, "Вы взяли заказ", Toast.LENGTH_SHORT).show()
+            override fun deleteOrder(order: Order, button: View){
+                deleteOrder(order.Order_id)
+                Toast.makeText(context, "Вы удалили заказ", Toast.LENGTH_SHORT).show()
             }
+
+            override fun confirmOrderComplete(order: Order, button: View){
+                confirmOrderComplete(order.Order_id)
+                Toast.makeText(context, "Вы подтведили выполнение заказа", Toast.LENGTH_SHORT).show()
+            }
+
+
         })
         binding = FragmentMyOrdersBinding.inflate(layoutInflater)
         binding.orderList.layoutManager = LinearLayoutManager(this.context)
@@ -62,6 +68,28 @@ class MyOrdersFragment : Fragment() {
         deleteOrderThread(order_id).start()
     }
 
+    fun confirmOrderComplete(order_id: Int){
+        confirmOrderCompleteThread(order_id).start()
+    }
+
+    fun confirmOrderCompleteThread(order_id: Int): Thread{
+        return Thread {
+            val client = OkHttpClient()
+
+            val requestBody: RequestBody = FormBody.Builder()
+                .add("id", order_id.toString())
+                .build()
+
+            val request: Request = Request.Builder()
+                .url("https://${LINK}.eu.ngrok.io/api/orders/completeOrder")
+                .header("Authorization", "Bearer ${AuthActivity.authToken}")
+                .post(requestBody)
+                .build()
+            val response = client.newCall(request).execute()
+            customerOrderDataModel.updateOrders()
+        }
+    }
+
     private fun deleteOrderThread(order_id: Int): Thread{
         return Thread {
             val client = OkHttpClient()
@@ -77,6 +105,7 @@ class MyOrdersFragment : Fragment() {
                 .build()
             Log.e("ERRROR", order_id.toString())
             val response = client.newCall(request).execute()
+            customerOrderDataModel.updateOrders()
         }
     }
 

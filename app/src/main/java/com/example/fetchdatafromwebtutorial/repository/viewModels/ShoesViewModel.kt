@@ -1,5 +1,6 @@
 package com.example.fetchdatafromwebtutorial.repository.viewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,13 +21,12 @@ class ShoesViewModel: ViewModel() {
     val shoes: LiveData<Array<Shoes>> = _shoes
     //инициализируем список и заполняем его данными пользователей
     init {
-        getMarsPhotos()
+        getShoes()
     }
 
     fun getListUsers() = shoes
 
-    private fun getMarsPhotos() {
-
+    private fun getShoes() {
         viewModelScope.launch {
             _status.value = ApiStatus.LOADING
             _shoes.value = ShoesApi.retrofitService.getShoes("Bearer ${AuthActivity.authToken}")

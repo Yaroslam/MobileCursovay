@@ -42,7 +42,7 @@ class OrdersAdapter(private val OrdersActionListener: OrdersActionListener): Rec
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun refreshShoes(orders: Array<Order>)
+    fun refreshOrders(orders: Array<Order>)
     {
         this.orders = orders
         notifyDataSetChanged()
