@@ -1,6 +1,7 @@
 package com.example.fetchdatafromwebtutorial.Fragments
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,8 @@ class AllOrdersFragment : Fragment() {
     private lateinit var  adapter: OrdersAdapter;
 
 
+    //обновление по удалению работает
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = OrdersAdapter(object : OrdersActionListener {
@@ -56,12 +59,6 @@ class AllOrdersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.e("CCCCCCUUUUUUUUUUUUUUm", "IT IS RESTART")
-        orderDataModel.updateOrders()
     }
 
 

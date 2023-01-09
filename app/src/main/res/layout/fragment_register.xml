@@ -16,9 +16,9 @@
             android:id="@+id/regButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="132dp"
+            android:layout_marginStart="88dp"
             android:layout_marginTop="436dp"
-            android:text="Button"
+            android:text="@string/reg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

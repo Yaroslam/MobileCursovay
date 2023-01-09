@@ -1,6 +1,7 @@
 package com.example.fetchdatafromwebtutorial.repository.viewModels
 
 
+import android.os.SystemClock
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,7 +21,6 @@ class OrdersViewModel: ViewModel() {
     private val _orders = MutableLiveData<Array<Order>>()
     var orders: LiveData<Array<Order>> = _orders
 
-    //инициализируем список и заполняем его данными пользователей
     init {
         getOrders()
     }
@@ -39,6 +39,7 @@ class OrdersViewModel: ViewModel() {
 
     fun updateOrders(){
         viewModelScope.launch {
+            SystemClock.sleep(3_000)
             _status.value = ApiStatus.LOADING
             _orders.value = ShoesApi.retrofitService.getOrders("Bearer ${AuthActivity.authToken}")
             _status.value = ApiStatus.DONE

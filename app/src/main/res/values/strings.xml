@@ -15,4 +15,6 @@
     <string name="create_acc">Создать аккаунт</string>
     <string name="email">Email</string>
     <string name="name">Name</string>
+    <string name="reg">Зарегистрироваться</string>
+    <string name="login">Войти</string>
 </resources>

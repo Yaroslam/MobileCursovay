@@ -1,5 +1,6 @@
 package com.example.fetchdatafromwebtutorial.repository.viewModels
 
+import android.os.SystemClock
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,6 +38,7 @@ class ExecutorOrdersViewModel: ViewModel() {
 
     fun updateOrders(){
         viewModelScope.launch {
+            SystemClock.sleep(3_000)
             _status.value = ApiStatus.LOADING
             _orders.value = ShoesApi.retrofitService.getExecuteOrders("Bearer ${AuthActivity.authToken}")
             _status.value = ApiStatus.DONE
