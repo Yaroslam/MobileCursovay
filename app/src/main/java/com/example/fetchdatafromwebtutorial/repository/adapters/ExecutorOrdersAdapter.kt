@@ -55,11 +55,12 @@ class ExecuteOrdersAdapter(private val ExecuteOrdersActionListener: ExecuteOrder
             ExecuteOrdersCardBinding.takeOrderButton.tag = order
             ExecuteOrdersCardBinding.takeOrderButton.text = "Отказаться"
 
-            ExecuteOrdersCardBinding.customer.text = order.customer
-            ExecuteOrdersCardBinding.link.text = order.Shoes_link
-            ExecuteOrdersCardBinding.brand.text = order.Shoes_brand
-            ExecuteOrdersCardBinding.name.text = order.Shoes_name
-            ExecuteOrdersCardBinding.price.text = order.Shoes_price
+            ExecuteOrdersCardBinding.customer.text = "Заказчик ${order.customer}"
+            ExecuteOrdersCardBinding.link.text = "Ссылка ${order.Shoes_link}"
+            ExecuteOrdersCardBinding.brand.text = "Бренд ${order.Shoes_brand}"
+            ExecuteOrdersCardBinding.name.text = "Товар ${order.Shoes_name}"
+            ExecuteOrdersCardBinding.price.text = "Цена ${order.Shoes_price}"
+
 
             Picasso.get().load(order.Shoes_img).into(ExecuteOrdersCardBinding.imageView)
         }

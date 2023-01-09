@@ -55,11 +55,12 @@ class OrdersAdapter(private val OrdersActionListener: OrdersActionListener): Rec
             allOrdersCardBinding.takeOrderButton.tag = order
             allOrdersCardBinding.takeOrderButton.text = "Взять заказ"
 
-            allOrdersCardBinding.customer.text = order.customer
-            allOrdersCardBinding.link.text = order.Shoes_link
-            allOrdersCardBinding.brand.text = order.Shoes_brand
-            allOrdersCardBinding.name.text = order.Shoes_name
-            allOrdersCardBinding.price.text = order.Shoes_price
+            allOrdersCardBinding.customer.text = "Заказчик ${order.customer}"
+            allOrdersCardBinding.link.text = "Ссылка ${order.Shoes_link}"
+            allOrdersCardBinding.brand.text = "Бренд ${order.Shoes_brand}"
+            allOrdersCardBinding.name.text = "Товар ${order.Shoes_name}"
+            allOrdersCardBinding.price.text = "Цена ${order.Shoes_price}"
+
 
             Picasso.get().load(order.Shoes_img).into(allOrdersCardBinding.imageView)
         }

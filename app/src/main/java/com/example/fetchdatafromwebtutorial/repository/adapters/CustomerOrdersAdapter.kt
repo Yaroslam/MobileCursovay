@@ -57,10 +57,10 @@ class CustomerOrdersAdapter(private val CustomerOrdersActionListener: CustomerOr
 
             customerOrdersCardBinding.confirmOrderComplete.text = "Заказ выполнен"
 
-            customerOrdersCardBinding.executor.text = order.customer
-            customerOrdersCardBinding.brand.text = order.Shoes_brand
-            customerOrdersCardBinding.name.text = order.Shoes_name
-            customerOrdersCardBinding.price.text = order.Shoes_price
+            customerOrdersCardBinding.executor.text = "Заказчик ${order.customer}"
+            customerOrdersCardBinding.brand.text = "Бренд ${order.Shoes_brand}"
+            customerOrdersCardBinding.name.text = "Товар ${order.Shoes_name}"
+            customerOrdersCardBinding.price.text = "Цена ${order.Shoes_price}"
 
             Picasso.get().load(order.Shoes_img).into(customerOrdersCardBinding.imageView)
         }
